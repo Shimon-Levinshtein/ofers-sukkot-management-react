@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './Extras.css';
 
 import { Formik, Form, Field } from 'formik';
@@ -13,12 +13,19 @@ import { addFile, deleteFile } from '../../../HandleFirebase'; //sukkahPicture-1
 const Extras = props => {
 
     const [extrasPicture, setExtrasPicture] = useState('');
+    const [extrasPictureErr, setExtrasPictureErr] = useState('');
+    const refExtrasPicture = useRef();
     const [extrasPictureId, setExtrasPictureId] = useState('');
     const [nameExtra, setNameExtra] = useState('');
     const [priceExtra, setPriceExtra] = useState('');
     
 
     const handleSudmit = () => {
+        if (!extrasPicture) {
+            setExtrasPictureErr('* לא נבחרה תמונה לתוספת! חובה לבחור תמונה');
+            refExtrasPicture.current.focus();
+            return;
+        }
         const dataForm = {
             extrasPicture: extrasPicture,
             nameExtra: nameExtra,
@@ -29,6 +36,9 @@ const Extras = props => {
         setExtrasPictureId('');
         setNameExtra('');
         setPriceExtra('');
+        setExtrasPictureErr('');
+        refExtrasPicture.current.value = "";
+
     };
 
 
@@ -51,7 +61,9 @@ const Extras = props => {
                     setExtrasPicture(url)
                     setExtrasPictureId(iunikId);
                 })
-        }
+        };
+        setExtrasPictureErr('');
+
     }
     const nameExtraChange = (e) => {
         setNameExtra(e.currentTarget.value);
@@ -69,7 +81,8 @@ const Extras = props => {
                         <div className='extras-contind-input-file'>
                             <div>
                                 <label htmlFor="extrasPicture">תמונת תוספת</label>
-                                <Input type="file" id="extrasPicture" name="extrasPicture" onChange={extrasPictureChange} />
+                                {extrasPictureErr && <div className='extras-err-message'>{extrasPictureErr}</div>}
+                                <input type="file" ref={refExtrasPicture} id="extrasPicture" name="extrasPicture" onChange={extrasPictureChange} />
                             </div>
                             <div className='extras-contind-input-file-img'>
                             <div >

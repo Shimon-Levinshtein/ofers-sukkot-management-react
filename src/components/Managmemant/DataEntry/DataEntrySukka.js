@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './DataEntrySukka.css';
 
 import { Formik, Form, Field } from 'formik';
@@ -13,18 +13,36 @@ import { addFile, deleteFile } from '../../../HandleFirebase'; //sukkahPicture-1
 const DataEntrySukka = props => {
 
     const [sukkahPicture, setSukkahPicture] = useState('');
+    const [sukkahPictureErr, setSukkahPictureErr] = useState('');
+    const refSukkahPicture = useRef();
     const [sukkahPictureId, setSukkahPictureId] = useState('');
     const [size, setSize] = useState('');
+    const [sizeErr, setSizeErr] = useState('');
+    const refSize = useRef();
     const [numberSitting, setNumberSitting] = useState('');
     const [typeOfSukkah, setTypeOfSukkah] = useState('');
     const [fabricType, setFabricType] = useState('');
     const [imageFabricType, setImageFabricType] = useState('');
     const [thatchType, setThatchType] = useState('');
     const [sukkahSizeImage, setSukkahSizeImage] = useState('');
+    const [sukkahSizeImageErr, setSukkahSizeImageErr] = useState('');
+    const refSukkahSizeImage = useRef();
     const [sukkahSizeImageId, setSukkahSizeImageId] = useState('');
     const [priceSukka, setPriceSukka] = useState('');
 
-    const handleSudmit = () => {
+    const handleSudmit = (e) => {
+        if (sizeErr) {
+            refSize.current.focus();
+            return;
+        } else if (!sukkahPicture) {
+            refSukkahPicture.current.focus();
+            setSukkahPictureErr(' * לא נבחרה תמונה סוכה! חובה לבחור תמונה.');
+            return;
+        } else if (!sukkahSizeImage) {
+            refSukkahSizeImage.current.focus();
+            setSukkahSizeImageErr(' * לא נבחרה תמונה גודל סוכה! חובה לבחור תמונה.');
+            return;
+        }
         const dataForm = {
             sukkahPicture: sukkahPicture,
             size: size,
@@ -38,6 +56,7 @@ const DataEntrySukka = props => {
         }
         props.pushSukkaData(dataForm);
         setSukkahPicture('');
+        setSukkahPictureErr('');
         setSukkahPictureId('');
         setSize('');
         setNumberSitting('');
@@ -47,7 +66,10 @@ const DataEntrySukka = props => {
         setThatchType('');
         setSukkahSizeImage('');
         setSukkahSizeImageId('');
+        setSukkahSizeImageErr('');
         setPriceSukka('');
+        refSukkahPicture.current.value = "";
+        refSukkahSizeImage.current.value = "";
     };
 
 
@@ -71,9 +93,17 @@ const DataEntrySukka = props => {
                     setSukkahPictureId(iunikId);
                 })
         }
+        setSukkahPictureErr('');
     }
     const sizeChange = (e) => {
-        setSize(e.currentTarget.value);
+        const value = e.currentTarget.value
+        if (value.includes('/') || value.includes('*')) {
+            setSize(value);
+            setSizeErr('')
+        } else {
+            setSize(value);
+            setSizeErr('* הגודל חייב להיות ככה 23.5/63  או 23.5*60 לדוגמה ');
+        }
     };
     const numberSittingChange = (e) => {
         setNumberSitting(e.currentTarget.value);
@@ -110,11 +140,11 @@ const DataEntrySukka = props => {
                     setSukkahSizeImageId(iunikId);
                 })
         }
+        setSukkahSizeImageErr('');
     };
     const priceSukkaChange = (e) => {
         setPriceSukka(e.currentTarget.value);
     };
-
 
     return (
         <Container>
@@ -124,7 +154,8 @@ const DataEntrySukka = props => {
                         <div className='dataEntrySukka-contind-input-file'>
                             <div>
                                 <label htmlFor="sukkahPicture">תמונה סוכה</label>
-                                <Input type="file" id="sukkahPicture" name="sukkahPicture" onChange={sukkahPictureChange} />
+                                {sukkahPictureErr && <div className='dataEntrySukka-err-message'>{sukkahPictureErr}</div>}
+                                <input type="file" ref={refSukkahPicture} id="sukkahPicture" name="sukkahPicture" onChange={sukkahPictureChange} />
                             </div>
                             <div className='dataEntrySukka-contind-input-file-img'>
                                 <div >
@@ -133,7 +164,8 @@ const DataEntrySukka = props => {
                             </div>
                         </div>
                         <label htmlFor="size">גודל</label>
-                        <Field type="text" id="size" name="size" onChange={sizeChange} placeholder="גודל" value={size} required />
+                        {sizeErr && <div className='dataEntrySukka-err-message'>{sizeErr}</div>}
+                        <input type="text" id="size" name="size" ref={refSize} onChange={sizeChange} placeholder="הגודל חייב להיות ככה 23.5/63  או 23.5*60 לדוגמה" value={size} required />
                         <label htmlFor="numberSitting">מספר יושבים</label>
                         <Field type="number" id="numberSitting" name="numberSitting" onChange={numberSittingChange} placeholder="מספר יושבים" value={numberSitting} required />
                         <label htmlFor="typeOfSukkah">סוג סוכה</label>
@@ -147,7 +179,8 @@ const DataEntrySukka = props => {
                         <div className='dataEntrySukka-contind-input-file'>
                             <div>
                                 <label htmlFor="sukkahSizeImage">תמונת גודל סוכה</label>
-                                <Input type="file" id="sukkahSizeImage" name="sukkahSizeImage" onChange={sukkahSizeImageChange} />
+                                {sukkahSizeImageErr && <div className='dataEntrySukka-err-message'>{sukkahSizeImageErr}</div>}
+                                <input type="file" ref={refSukkahSizeImage} id="sukkahSizeImage" name="sukkahSizeImage" onChange={sukkahSizeImageChange} />
                             </div>
                             <div className='dataEntrySukka-contind-input-file-img'>
                                 <div >
@@ -160,7 +193,6 @@ const DataEntrySukka = props => {
 
                         <Button type="submit">שמור</Button>
                     </Form>
-
                 </div>
             </Formik>
         </Container>
