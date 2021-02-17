@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-// import userReducer from './userReducer';
+import sukkotData from './sukkotData';
 export default combineReducers({
-    // users: userReducer
+    sukkotData: sukkotData
 });
