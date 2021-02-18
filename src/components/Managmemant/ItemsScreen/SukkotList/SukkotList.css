@@ -1,8 +1,13 @@
 .sukkotList-continer {
-    width: 100%;
+    /* width: 100%; */
     border-style: groove;
     border-radius: 10px;
     background-color: #f2f2f2;
     padding: 20px;
     margin-bottom: 20px;
+}
+
+.sukkotList-continer h1 {
+    text-align: center;
+    margin-top: 0px;
 }

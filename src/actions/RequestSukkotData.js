@@ -2,7 +2,7 @@ export const REQUEST_SUKKOT_DATA = 'REQUEST_SUKKOT_DATA';
 // export const PUSH_EXTRAS_DATA = 'PUSH_EXTRAS_DATA';
 
 
-export const requestSukkotData = (obj) => {
+export const requestSukkotData = () => {
     return async (dispatch, getState) => {
         fetch('https://ofers-sukkot-data-default-rtdb.firebaseio.com/sukkots.json/')
             .then(obj => {

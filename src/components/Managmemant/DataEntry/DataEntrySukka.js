@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './DataEntrySukka.css';
 
 import { Formik, Form, Field } from 'formik';
@@ -6,11 +6,15 @@ import { Container, Button, Input } from 'reactstrap';
 import { connect } from 'react-redux';
 
 import { pushSukkaData } from '../../../actions/HandleSukkaData';
+import { requestSukkotData } from '../../../actions/RequestSukkotData';
 import { addFile, deleteFile } from '../../../HandleFirebase'; //sukkahPicture-1613299807227
 
 
 
 const DataEntrySukka = props => {
+
+
+    const [editItem, setEditItem] = useState(false);
 
     const [sukkahPicture, setSukkahPicture] = useState('');
     const [sukkahPictureErr, setSukkahPictureErr] = useState('');
@@ -30,6 +34,31 @@ const DataEntrySukka = props => {
     const [sukkahSizeImageId, setSukkahSizeImageId] = useState('');
     const [priceSukka, setPriceSukka] = useState('');
 
+    useEffect(
+        () => {
+            if (props.editSukkaData.id) {
+                console.log(props.editSukkaData);
+                setEditItem(true);
+                setSukkahPicture(props.editSukkaData.sukkahPicture);
+                setSukkahPictureErr('');
+                setSukkahPictureId(props.editSukkaData.sukkahPictureId);
+                setSize(props.editSukkaData.size);
+                setNumberSitting(props.editSukkaData.numberSitting);
+                setTypeOfSukkah(props.editSukkaData.typeOfSukkah);
+                setFabricType(props.editSukkaData.fabricType);
+                setImageFabricType(props.editSukkaData.imageFabricType);
+                setThatchType(props.editSukkaData.thatchType);
+                setSukkahSizeImage(props.editSukkaData.sukkahSizeImage);
+                setSukkahSizeImageId(props.editSukkaData.sukkahSizeImageId);
+                setSukkahSizeImageErr('');
+                setPriceSukka(props.editSukkaData.priceSukka);
+                refSukkahPicture.current.value = "";
+                refSukkahSizeImage.current.value = "";
+            };
+        },
+        [props.editSukkaData.id],
+    );
+
     const handleSudmit = (e) => {
         if (sizeErr) {
             refSize.current.focus();
@@ -45,6 +74,7 @@ const DataEntrySukka = props => {
         }
         const dataForm = {
             sukkahPicture: sukkahPicture,
+            sukkahPictureId: sukkahPictureId,
             size: size,
             numberSitting: numberSitting,
             typeOfSukkah: typeOfSukkah,
@@ -52,6 +82,7 @@ const DataEntrySukka = props => {
             imageFabricType: imageFabricType,
             thatchType: thatchType,
             sukkahSizeImage: sukkahSizeImage,
+            sukkahSizeImageId: sukkahSizeImageId,
             priceSukka: priceSukka,
         }
         props.pushSukkaData(dataForm);
@@ -150,6 +181,7 @@ const DataEntrySukka = props => {
         <Container>
             <Formik initialValues={{ sukkahPicture: '' }} onSubmit={handleSudmit} >
                 <div className="dataEntrySukka-div-product-details">
+                {editItem ? <h2>ערוך סוכה, קוד: {props.editSukkaData.id}</h2> : <h2>סוכה חדשה</h2>}
                     <Form>
                         <div className='dataEntrySukka-contind-input-file'>
                             <div>
@@ -191,7 +223,7 @@ const DataEntrySukka = props => {
                         <label htmlFor="priceSukka">מחיר סוכה</label>
                         <Field type="number" id="priceSukka" name="priceSukka" onChange={priceSukkaChange} placeholder="מחיר סוכה" value={priceSukka} required />
 
-                        <Button type="submit">שמור</Button>
+                        <Button type="submit">{editItem ? 'שמור שינויים' : 'שמור'}</Button>
                     </Form>
                 </div>
             </Formik>
@@ -201,6 +233,6 @@ const DataEntrySukka = props => {
 
 
 const mapStateToProps = state => {
-    return {}
+    return { editSukkaData: state.editSukkaData }
 }
-export default connect(mapStateToProps, { pushSukkaData })(DataEntrySukka);
+export default connect(mapStateToProps, { pushSukkaData, requestSukkotData })(DataEntrySukka);

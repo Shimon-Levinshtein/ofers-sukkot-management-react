@@ -1,6 +1,7 @@
 import { storage } from "./firebase/firebase"
 
 
+
 export const addFile = (imageFileName, imageData, imageFolder) => {
 
     return new Promise((resolve, reject) => {

@@ -3,7 +3,7 @@ import './SukkotList.css';
 
 import { connect } from 'react-redux';
 
-import Item from './Item/Item';
+import Item from './Item.js/Item';
 
 import { requestSukkotData } from '../../../../actions/RequestSukkotData';
 
@@ -29,6 +29,7 @@ const SukkotList = props => {
 
     return (
         <div className='sukkotList-continer'>
+            <h1>רשימת סוכות</h1>
             {hendlerList()}
         </div>
     );

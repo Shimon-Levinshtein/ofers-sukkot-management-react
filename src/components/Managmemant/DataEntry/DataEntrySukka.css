@@ -7,6 +7,14 @@
     margin-bottom: 20px;
 }
 
+.dataEntrySukka-div-product-details h2 {
+  margin: 0px;
+  margin-bottom: 15px;
+  text-align: center;
+  color: black;
+  border-bottom: 1px solid rgba(230, 230, 230, 1);
+  padding-bottom: 5px;
+}
 
 .dataEntrySukka-div-product-details form input, select, textarea {
     width: 100%;
