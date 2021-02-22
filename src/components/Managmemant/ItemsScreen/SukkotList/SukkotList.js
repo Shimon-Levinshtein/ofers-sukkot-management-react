@@ -23,14 +23,16 @@ const SukkotList = props => {
             return <h3>אין פריטים! תוסיף פריטים למסך.</h3>
         }
         return Object.keys(obj).map((item, i) => (
-            <Item id={item} key={i} obj={obj[item]}/>
-          ))
+            <Item id={item} key={i} obj={obj[item]} />
+        ))
     }
 
     return (
         <div className='sukkotList-continer'>
-            <h1>רשימת סוכות</h1>
-            {hendlerList()}
+            <h1>רשימת סוכות: {Object.keys(props.sukkotDataObj).length} סוכות</h1>
+            <div className='sukkotList-contining-items' id="sukkotList-contining-items-style-15">
+                {hendlerList()}
+            </div>
         </div>
     );
 };

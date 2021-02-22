@@ -27,17 +27,32 @@
     resize: vertical;
   }
   
-  .dataEntrySukka-div-product-details form button[type=submit] {
+  .dataEntrySukka-button-save {
     background-color:rgb(21, 185, 214);
     color: white;
     padding: 12px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    margin-left: 10px;
+  }
+
+  .dataEntrySukka-button-save:hover {
+    background-color: rgb(14, 118, 136);
   }
   
-  .dataEntrySukka-div-product-details form button[type=submit]:hover {
-    background-color: rgb(14, 118, 136);
+  .dataEntrySukka-button-cancel {
+    background-color: red;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+
+  .dataEntrySukka-button-cancel:hover {
+    background-color: rgb(231, 0, 0);
   }
 
   .dataEntrySukka-contind-input-file {

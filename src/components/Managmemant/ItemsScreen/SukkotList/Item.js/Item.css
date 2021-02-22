@@ -1,7 +1,7 @@
 .item-continer {
     background-color: rgb(29, 218, 252);
     border-radius: 10px;
-    margin-top: 10px;
+    margin-bottom: 10px;
     padding: 10px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

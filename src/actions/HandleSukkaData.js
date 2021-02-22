@@ -13,13 +13,17 @@ export const pushSukkaData = (obj) => {
                 },
                 body: JSON.stringify(obj)
             }
-        ).then(() => {
-            fetch('https://ofers-sukkot-data-default-rtdb.firebaseio.com/sukkots.json/')
-            .then(obj => {
-                const promise = obj.json();
-                promise.then(obj => {
-                    dispatch({ type: PUSH_SUKKA_DATA, item: obj });
-                })
+        ).then(result => {
+            const promise = result.json();
+            promise.then(resultB => {
+                fetch('https://ofers-sukkot-data-default-rtdb.firebaseio.com/sukkots.json/')
+                    .then(obj => {
+                        const promise = obj.json();
+                        promise.then(obj => {
+                            obj[resultB.name].focus = true;
+                            dispatch({ type: PUSH_SUKKA_DATA, item: obj });
+                        })
+                    })
             })
         })
     };
@@ -30,6 +34,34 @@ export const editSukkaData = (id) => {
         const objItems = getState().sukkotData;
         objItems[id].id = id;
         dispatch({ type: EDIT_SUKKA_DATA, item: objItems[id] });
+    };
+};
+
+export const pushChangesSukkaData = (obj) => {
+    return async (dispatch) => {
+        console.log(obj);
+        fetch(
+            `https://ofers-sukkot-data-default-rtdb.firebaseio.com/sukkots/${obj.id}.json`,
+            {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({...obj})
+            }
+        ).then(result => {
+            const promise = result.json();
+            promise.then(resultB => {
+                fetch('https://ofers-sukkot-data-default-rtdb.firebaseio.com/sukkots.json/')
+                    .then(obj => {
+                        const promise = obj.json();
+                        promise.then(obj => {
+                            // obj[resultB.name].focus = true;
+                            dispatch({ type: PUSH_SUKKA_DATA, item: obj });
+                        })
+                    })
+            })
+        })
     };
 };
 
