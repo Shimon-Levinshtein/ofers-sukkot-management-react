@@ -13,7 +13,11 @@ export default (state = defaultState, action) => {
         case PUSH_SUKKA_DATA:
                 return action.item;
         case DELETE_SUKKA_DATA:
-                return action.item;
+                if (!action.payload) {
+                    return {empty: true};
+                } else {
+                    return action.payload;
+                };
         default:
             return state;
 
