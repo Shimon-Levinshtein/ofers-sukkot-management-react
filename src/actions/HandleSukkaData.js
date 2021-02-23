@@ -1,5 +1,6 @@
 export const PUSH_SUKKA_DATA = 'PUSH_SUKKA_DATA';
 export const EDIT_SUKKA_DATA = 'EDIT_SUKKA_DATA';
+export const DELETE_SUKKA_DATA = 'DELETE_SUKKA_DATA';
 export const PUSH_EXTRAS_DATA = 'PUSH_EXTRAS_DATA';
 
 export const pushSukkaData = (obj) => {
@@ -39,7 +40,6 @@ export const editSukkaData = (id) => {
 
 export const pushChangesSukkaData = (obj) => {
     return async (dispatch) => {
-        console.log(obj);
         fetch(
             `https://ofers-sukkot-data-default-rtdb.firebaseio.com/sukkots/${obj.id}.json`,
             {
@@ -47,7 +47,7 @@ export const pushChangesSukkaData = (obj) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({...obj})
+                body: JSON.stringify({ ...obj })
             }
         ).then(result => {
             const promise = result.json();
@@ -61,6 +61,28 @@ export const pushChangesSukkaData = (obj) => {
                         })
                     })
             })
+        })
+    };
+};
+
+export const deleteSukkaData = (id) => {
+    return async (dispatch) => {
+        fetch(
+            `https://ofers-sukkot-data-default-rtdb.firebaseio.com/sukkots/${id}.json`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        ).then(() => {
+            fetch('https://ofers-sukkot-data-default-rtdb.firebaseio.com/sukkots.json/')
+                .then(obj => {
+                    const promise = obj.json();
+                    promise.then(obj => {
+                        dispatch({ type: DELETE_SUKKA_DATA, item: obj });
+                    })
+                })
         })
     };
 };

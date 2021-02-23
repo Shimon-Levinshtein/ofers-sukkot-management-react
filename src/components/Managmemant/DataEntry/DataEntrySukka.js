@@ -13,7 +13,6 @@ import { addFile, deleteFile } from '../../../HandleFirebase';
 
 const DataEntrySukka = props => {
 
-
     const [editItem, setEditItem] = useState(false);
 
     const [sukkahPicture, setSukkahPicture] = useState('');

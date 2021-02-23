@@ -1,4 +1,4 @@
-.item-continer {
+.sukkotList-item-continer {
     background-color: rgb(29, 218, 252);
     border-radius: 10px;
     margin-bottom: 10px;
@@ -6,7 +6,7 @@
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.item-continer h5 {
+.sukkotList-item-continer h5 {
     margin: 0px;
     margin-bottom: 15px;
     text-align: center;
@@ -16,18 +16,18 @@
     padding-bottom: 5px;
 }
 
-.item-containing-details-and-imges {
+.sukkotList-item-containing-details-and-imges {
     display: flex;
     justify-content: space-between;
 }
 
-.item-containing-imges {
+.sukkotList-item-containing-imges {
     width: 50%; 
     display: flex;
     justify-content: flex-end;
 }
 
-.item-containing-imge {
+.sukkotList-item-containing-imge {
     background-color: rgba(255, 255, 255, 0.486);
     width: min-content;
     height: min-content;
@@ -37,13 +37,13 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.item-containing-imges img {
+.sukkotList-item-containing-imges img {
     height: 100px;
     border-radius: 10px;
     /* max-width: 50%; */
 }
 
-.item-containing-details {
+.sukkotList-item-containing-details {
     border-radius: 10px;
     /* width: 50%; */
     padding: 20px;
@@ -51,16 +51,16 @@
     background-color: rgba(255, 255, 255, 0.705);
 }
 
-.item-containing-details ul {
+.sukkotList-item-containing-details ul {
     padding-right: 20px;
     margin: 0px;
 }
 
-.item-containing-buttons {
+.sukkotList-item-containing-buttons {
     text-align: left;
 }
 
-.item-containing-buttons button {
+.sukkotList-item-button-edit {
     /* color: rgb(20, 161, 185); */
     background-color: white;
     color: rgb(20, 161, 185);
@@ -74,7 +74,26 @@
     font-size: 11pt;
 }
 
-.item-containing-buttons button:hover{
+.sukkotList-item-button-edit:hover{
     color: white;
     background-color: rgb(14, 118, 136);
+}
+
+.sukkotList-item-button-delete {
+    /* color: rgb(20, 161, 185); */
+    background-color: white;
+    color: red;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 11pt;
+}
+
+.sukkotList-item-button-delete:hover{
+    color: white;
+    background-color: red;
 }

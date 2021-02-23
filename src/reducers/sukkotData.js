@@ -1,5 +1,5 @@
 import { REQUEST_SUKKOT_DATA } from '../actions/RequestSukkotData';
-import { PUSH_SUKKA_DATA } from '../actions/HandleSukkaData';
+import { PUSH_SUKKA_DATA, DELETE_SUKKA_DATA } from '../actions/HandleSukkaData';
 
 const defaultState = {empty: true}
 export default (state = defaultState, action) => {
@@ -11,6 +11,8 @@ export default (state = defaultState, action) => {
                 return action.payload;
             };
         case PUSH_SUKKA_DATA:
+                return action.item;
+        case DELETE_SUKKA_DATA:
                 return action.item;
         default:
             return state;

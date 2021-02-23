@@ -3,7 +3,7 @@ import './Item.css';
 
 import { connect } from 'react-redux';
 
-import { editSukkaData } from '../../../../../actions/HandleSukkaData';
+import { editSukkaData, deleteSukkaData } from '../../../../../actions/HandleSukkaData';
 
 class Item extends Component {
     constructor(props) {
@@ -19,10 +19,10 @@ class Item extends Component {
     
     render() {
         return (
-            <div className='item-continer' ref={this.myRef} >
+            <div className='sukkotList-item-continer' ref={this.myRef} >
                 <h5>קוד {this.props.id}</h5>
-                <div className='item-containing-details-and-imges'>
-                    <div className='item-containing-details'>
+                <div className='sukkotList-item-containing-details-and-imges'>
+                    <div className='sukkotList-item-containing-details'>
                         <ul>
                             <li><b>גודל:</b> {this.props.obj.size}</li>
                             <li><b>מספר יושבים:</b> {this.props.obj.numberSitting}</li>
@@ -33,20 +33,20 @@ class Item extends Component {
                             <li><b>מחיר סוכה:</b> ₪{this.props.obj.priceSukka}</li>
                         </ul>
                     </div>
-                    <div className='item-containing-imges'>
-                        <div className='item-containing-imge'>
+                    <div className='sukkotList-item-containing-imges'>
+                        <div className='sukkotList-item-containing-imge'>
                             <div>תמונת סוכה</div>
                             <img src={this.props.obj.sukkahPicture} />
                         </div>
-                        <div className='item-containing-imge'>
+                        <div className='sukkotList-item-containing-imge'>
                             <div>תמונת גודל סוכה</div>
                             <img src={this.props.obj.sukkahSizeImage} />
                         </div>
                     </div>
                 </div>
-                <div className='item-containing-buttons'>
-                    <button onClick={() => this.props.editSukkaData(this.props.id)}>ערוך</button>
-                    <button >מחק</button>
+                <div className='sukkotList-item-containing-buttons'>
+                    <button className='sukkotList-item-button-edit' onClick={() => this.props.editSukkaData(this.props.id)}>ערוך</button>
+                    <button className='sukkotList-item-button-delete' onClick={() => this.props.deleteSukkaData(this.props.id)} >מחק</button>
                 </div>
             </div>
         );
@@ -57,4 +57,4 @@ class Item extends Component {
 const mapStateToProps = state => {
     return { focusDiv: state.focus }
 }
-export default connect(mapStateToProps, { editSukkaData })(Item);
+export default connect(mapStateToProps, { editSukkaData, deleteSukkaData })(Item);
