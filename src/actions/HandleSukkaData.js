@@ -82,6 +82,7 @@ export const deleteSukkaData = (id) => {
                 .then(obj => {
                     const promise = obj.json();
                     promise.then(obj => {
+                        console.log(obj);
                         dispatch({ type: DELETE_SUKKA_DATA, item: obj });
                     })
                 })
