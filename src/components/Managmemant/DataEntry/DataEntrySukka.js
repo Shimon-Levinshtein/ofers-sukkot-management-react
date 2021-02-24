@@ -225,7 +225,11 @@ const DataEntrySukka = props => {
                         <label htmlFor="numberSitting">מספר יושבים</label>
                         <Field type="number" id="numberSitting" name="numberSitting" onChange={numberSittingChange} placeholder="מספר יושבים" value={numberSitting} required />
                         <label htmlFor="typeOfSukkah">סוג סוכה</label>
-                        <Field type="text" id="typeOfSukkah" name="typeOfSukkah" onChange={typeOfSukkahChange} placeholder="סוג סוכה" value={typeOfSukkah} required />
+                        {/* <Field type="text" id="typeOfSukkah" name="typeOfSukkah" onChange={typeOfSukkahChange} placeholder="סוג סוכה" value={typeOfSukkah} required /> */}
+                        <select type="text" id="typeOfSukkah" name="typeOfSukkah" onChange={typeOfSukkahChange} required>
+                            <option>סוכות ירושלים</option>
+                            <option>סוכות דוד המלך</option>
+                        </select>
                         <label htmlFor="fabricType">סוג בד</label>
                         <Field type="text" id="fabricType" name="fabricType" onChange={fabricTypeChange} placeholder="סוג בד" value={fabricType} required />
                         <label htmlFor="imageFabricType">סוג בד תמונה</label>
