@@ -1,16 +1,18 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './Extras.css';
 
 import { Formik, Form, Field } from 'formik';
 import { Container, Button, Input } from 'reactstrap';
 import { connect } from 'react-redux';
 
-import { pushExtrasData } from '../../../actions/HandleSukkaData';
+import { pushExtrasData, pushChangesExtraData } from '../../../actions/HandleSukkaData';
 import { addFile, deleteFile } from '../../../HandleFirebase'; //sukkahPicture-1613299807227
 
 
 
 const Extras = props => {
+
+    const [editItem, setEditItem] = useState(false);
 
     const [extrasPicture, setExtrasPicture] = useState('');
     const [extrasPictureErr, setExtrasPictureErr] = useState('');
@@ -18,7 +20,31 @@ const Extras = props => {
     const [extrasPictureId, setExtrasPictureId] = useState('');
     const [nameExtra, setNameExtra] = useState('');
     const [priceExtra, setPriceExtra] = useState('');
-    
+
+    useEffect(
+        () => {
+            if (props.editExraData.id) {
+                setEditItem(true);
+                setExtrasPicture(props.editExraData.extrasPicture);
+                setExtrasPictureId(props.editExraData.extrasPictureId);
+                setNameExtra(props.editExraData.nameExtra);
+                setPriceExtra(props.editExraData.priceExtra);
+                setExtrasPictureErr('');
+                refExtrasPicture.current.value = "";
+            };
+        },
+        [props.editExraData.id],
+    );
+
+    const handleCancel = (e) => {
+        setExtrasPicture('');
+        setExtrasPictureId('');
+        setNameExtra('');
+        setPriceExtra('');
+        setExtrasPictureErr('');
+        refExtrasPicture.current.value = "";
+        setEditItem(false);
+    };
 
     const handleSudmit = () => {
         if (!extrasPicture) {
@@ -30,15 +56,21 @@ const Extras = props => {
             extrasPicture: extrasPicture,
             nameExtra: nameExtra,
             priceExtra: priceExtra,
+            extrasPictureId: extrasPictureId,
         }
-        props.pushExtrasData(dataForm);
+        if (editItem) {
+            dataForm.id = props.editExraData.id;
+            props.pushChangesExtraData(dataForm);
+            setEditItem(false);
+        } else {
+            props.pushExtrasData(dataForm);
+        };
         setExtrasPicture('');
         setExtrasPictureId('');
         setNameExtra('');
         setPriceExtra('');
         setExtrasPictureErr('');
         refExtrasPicture.current.value = "";
-
     };
 
 
@@ -77,6 +109,7 @@ const Extras = props => {
         <Container>
             <Formik initialValues={{ extrasPicture: '' }} onSubmit={handleSudmit} >
                 <div className="extras-div-product-details">
+                    {editItem ? <h2>ערוך תוספת, קוד: {props.editExraData.id}</h2> : <h2>תוספת חדשה</h2>}
                     <Form>
                         <div className='extras-contind-input-file'>
                             <div>
@@ -85,9 +118,9 @@ const Extras = props => {
                                 <input type="file" ref={refExtrasPicture} id="extrasPicture" name="extrasPicture" onChange={extrasPictureChange} />
                             </div>
                             <div className='extras-contind-input-file-img'>
-                            <div >
-                                <img src={extrasPicture} />
-                            </div>
+                                <div >
+                                    <img src={extrasPicture} />
+                                </div>
                             </div>
                         </div>
                         <label htmlFor="name">שם התוספת</label>
@@ -95,7 +128,8 @@ const Extras = props => {
                         <label htmlFor="place">מחיר תוספת</label>
                         <Field type="number" id="place" name="place" onChange={priceExtraChange} placeholder="מחיר תוספת" value={priceExtra} required />
 
-                        <Button type="submit">שמור</Button>
+                        <Button className='extras-button-save' type="submit">{editItem ? 'שמור שינויים' : 'שמור'}</Button>
+                        <Button onClick={handleCancel} className='extras-button-cancel'>ביטול</Button>
                     </Form>
 
                 </div>
@@ -106,6 +140,6 @@ const Extras = props => {
 
 
 const mapStateToProps = state => {
-    return {}
+    return { editExraData: state.editExraData }
 }
-export default connect(mapStateToProps, { pushExtrasData })(Extras);
+export default connect(mapStateToProps, { pushExtrasData, pushChangesExtraData })(Extras);

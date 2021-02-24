@@ -12,7 +12,6 @@ class Item extends Component {
     }
 
     componentDidUpdate() {
-        console.log('componentDidUpdate');
         this.myRef.current.focus();
     };
 

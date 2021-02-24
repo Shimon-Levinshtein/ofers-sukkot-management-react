@@ -1,0 +1,100 @@
+.extrasItem-item-continer {
+    background-color: rgb(29, 218, 252);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.extrasItem-item-continer h5 {
+    margin: 0px;
+    margin-bottom: 15px;
+    text-align: center;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+    border-bottom: 1px solid rgba(230, 230, 230, 1);
+    padding-bottom: 5px;
+}
+
+.extrasItem-item-containing-details-and-imges {
+    display: flex;
+    justify-content: space-between;
+}
+
+.extrasItem-item-containing-imges {
+    width: 50%; 
+    display: flex;
+    justify-content: flex-end;
+}
+
+.extrasItem-item-containing-imge {
+    background-color: rgba(255, 255, 255, 0.486);
+    width: min-content;
+    height: min-content;
+    padding: 10px;
+    border-radius: 10px;
+    margin-right: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 10px;
+}
+
+.extrasItem-item-containing-imges img {
+    height: 100px;
+    border-radius: 10px;
+    /* max-width: 50%; */
+}
+
+.extrasItem-item-containing-details {
+    border-radius: 10px;
+    /* width: 50%; */
+    padding: 20px;
+    height: fit-content;
+    background-color: rgba(255, 255, 255, 0.705);
+}
+
+.extrasItem-item-containing-details ul {
+    padding-right: 20px;
+    margin: 0px;
+}
+
+.extrasItem-item-containing-buttons {
+    text-align: left;
+}
+
+.extrasItem-item-button-edit {
+    /* color: rgb(20, 161, 185); */
+    background-color: white;
+    color: rgb(20, 161, 185);
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 11pt;
+}
+
+.extrasItem-item-button-edit:hover{
+    color: white;
+    background-color: rgb(14, 118, 136);
+}
+
+.extrasItem-item-button-delete {
+    /* color: rgb(20, 161, 185); */
+    background-color: white;
+    color: red;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 11pt;
+}
+
+.extrasItem-item-button-delete:hover{
+    color: white;
+    background-color: red;
+}

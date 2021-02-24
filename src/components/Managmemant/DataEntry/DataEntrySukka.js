@@ -9,8 +9,6 @@ import { pushSukkaData, pushChangesSukkaData } from '../../../actions/HandleSukk
 import { requestSukkotData } from '../../../actions/RequestSukkotData';
 import { addFile, deleteFile } from '../../../HandleFirebase';
 
-
-
 const DataEntrySukka = props => {
 
     const [editItem, setEditItem] = useState(false);

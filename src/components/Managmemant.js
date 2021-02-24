@@ -18,7 +18,7 @@ const Managmemant = () => {
         </div>
         <div className='managmemant-data-entry-forums'>
           <SukkotList />
-          {/* <ExtrasList /> */}
+          <ExtrasList />
         </div>
       </div>
     );
