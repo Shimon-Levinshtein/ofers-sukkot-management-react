@@ -22,6 +22,8 @@ const DataEntrySukka = props => {
     const refSize = useRef();
     const [numberSitting, setNumberSitting] = useState('');
     const [typeOfSukkah, setTypeOfSukkah] = useState('');
+    const [typeOfSukkahErr, setTypeOfSukkahErr] = useState('');
+    const refTypeOfSukkah = useRef();
     const [fabricType, setFabricType] = useState('');
     const [imageFabricType, setImageFabricType] = useState('');
     const [thatchType, setThatchType] = useState('');
@@ -41,6 +43,7 @@ const DataEntrySukka = props => {
                 setSize(props.editSukkaData.size);
                 setNumberSitting(props.editSukkaData.numberSitting);
                 setTypeOfSukkah(props.editSukkaData.typeOfSukkah);
+                setTypeOfSukkahErr('');
                 setFabricType(props.editSukkaData.fabricType);
                 setImageFabricType(props.editSukkaData.imageFabricType);
                 setThatchType(props.editSukkaData.thatchType);
@@ -50,6 +53,7 @@ const DataEntrySukka = props => {
                 setPriceSukka(props.editSukkaData.priceSukka);
                 refSukkahPicture.current.value = "";
                 refSukkahSizeImage.current.value = "";
+                refTypeOfSukkah.current.value = props.editSukkaData.typeOfSukkah;
             };
         },
         [props.editSukkaData.id],
@@ -63,6 +67,7 @@ const DataEntrySukka = props => {
         setSizeErr('');
         setNumberSitting('');
         setTypeOfSukkah('');
+        setTypeOfSukkahErr('');
         setFabricType('');
         setImageFabricType('');
         setThatchType('');
@@ -72,12 +77,11 @@ const DataEntrySukka = props => {
         setPriceSukka('');
         refSukkahPicture.current.value = "";
         refSukkahSizeImage.current.value = "";
+        refTypeOfSukkah.current.value = "DEFAULT";
         setEditItem(false);
     };
     const handleSudmit = (e) => {
         if (sizeErr) {
-            console.log(refSize);
-
             refSize.current.focus();
             return;
         } else if (!sukkahPicture) {
@@ -87,6 +91,10 @@ const DataEntrySukka = props => {
         } else if (!sukkahSizeImage) {
             refSukkahSizeImage.current.focus();
             setSukkahSizeImageErr(' * לא נבחרה תמונה גודל סוכה! חובה לבחור תמונה.');
+            return;
+        } else if (!typeOfSukkah) {
+            refTypeOfSukkah.current.focus();
+            setTypeOfSukkahErr(' * לא נבחרה סוג סוכה! חובה לבחור סוג סוכה.');
             return;
         }
         const dataForm = {
@@ -116,6 +124,7 @@ const DataEntrySukka = props => {
         setSize('');
         setNumberSitting('');
         setTypeOfSukkah('');
+        setTypeOfSukkahErr('');
         setFabricType('');
         setImageFabricType('');
         setThatchType('');
@@ -125,6 +134,7 @@ const DataEntrySukka = props => {
         setPriceSukka('');
         refSukkahPicture.current.value = "";
         refSukkahSizeImage.current.value = "";
+        refTypeOfSukkah.current.value = "DEFAULT";
     };
 
 
@@ -165,6 +175,7 @@ const DataEntrySukka = props => {
     };
     const typeOfSukkahChange = (e) => {
         setTypeOfSukkah(e.currentTarget.value);
+        setTypeOfSukkahErr('');
     };
     const fabricTypeChange = (e) => {
         setFabricType(e.currentTarget.value);
@@ -225,8 +236,9 @@ const DataEntrySukka = props => {
                         <label htmlFor="numberSitting">מספר יושבים</label>
                         <Field type="number" id="numberSitting" name="numberSitting" onChange={numberSittingChange} placeholder="מספר יושבים" value={numberSitting} required />
                         <label htmlFor="typeOfSukkah">סוג סוכה</label>
-                        {/* <Field type="text" id="typeOfSukkah" name="typeOfSukkah" onChange={typeOfSukkahChange} placeholder="סוג סוכה" value={typeOfSukkah} required /> */}
-                        <select type="text" id="typeOfSukkah" name="typeOfSukkah" onChange={typeOfSukkahChange} required>
+                        {typeOfSukkahErr && <div className='dataEntrySukka-err-message'>{typeOfSukkahErr}</div>}
+                        <select type="text" id="typeOfSukkah" name="typeOfSukkah" ref={refTypeOfSukkah} defaultValue={'DEFAULT'} onChange={typeOfSukkahChange} required>
+                            <option value="DEFAULT" disabled>בחר סוג סוכה</option>
                             <option>סוכות ירושלים</option>
                             <option>סוכות דוד המלך</option>
                         </select>
