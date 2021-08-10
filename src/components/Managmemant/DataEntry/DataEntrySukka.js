@@ -162,12 +162,12 @@ const DataEntrySukka = props => {
     }
     const sizeChange = (e) => {
         const value = e.currentTarget.value
-        if (value.includes('/') || value.includes('*')) {
+        if (value.includes('/')) {
             setSize(value);
             setSizeErr('')
         } else {
             setSize(value);
-            setSizeErr('* הגודל חייב להיות ככה 23.5/63  או 23.5*60 לדוגמה ');
+            setSizeErr('* הגודל חייב להיות ככה 23.5/63 לדוגמה ');
         }
     };
     const numberSittingChange = (e) => {
